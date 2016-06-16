@@ -38,5 +38,8 @@
                     me.todoName.value = "";
                 })
         }
+        Rx.Observable.just([1, 2]).flatMap(s=>s).subscribe(e=>{
+            console.log(e);
+        })
     </script>
 </app>
