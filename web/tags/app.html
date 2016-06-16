@@ -1,0 +1,42 @@
+<app>
+    <ul>
+        <li each="{todos}">{name}</li>
+    </ul>
+    <input type="text" name="todoName"/>
+    <input type="button" onclick="{addOn}" value="add"/>
+    <script>
+        var id = 0;
+        var mocks = [
+            {
+                id: id++,
+                name: 'todo1'
+            },
+            {
+                id: id++,
+                name: 'todo2'
+            },
+            {
+                id: id++,
+                name: 'todo3'
+            }
+        ]
+        var me = this;
+        this.on('mount', () => {
+            Rx.Observable
+                .fromPromise(Promise.resolve(mocks))
+                .subscribe(todos => {
+                    me.todos = todos;
+                    me.update();
+                })
+        })
+        this.addOn = e => {
+            Rx.Observable.just(me.todoName.value)
+                .flatMap(Promise.resolve('ok'))
+                .subscribe((s)=>{
+                    console.warn(s);
+                    me.todos.push({id: id++, name: me.todoName.value})
+                    me.todoName.value = "";
+                })
+        }
+    </script>
+</app>

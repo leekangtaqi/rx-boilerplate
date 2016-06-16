@@ -1,0 +1,24 @@
+{
+  "name": "rx-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leekangtaqi/rx-boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leekangtaqi/rx-boilerplate/issues"
+  },
+  "homepage": "https://github.com/leekangtaqi/rx-boilerplate#readme",
+  "dependencies": {
+    "jquery": "^3.0.0",
+    "riot": "^2.4.1",
+    "rx": "^4.1.0"
+  }
+}
