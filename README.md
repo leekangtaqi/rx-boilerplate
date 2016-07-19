@@ -1,2 +1,2 @@
 # rx-boilerplate
-touch the paradigm of ReactiveX
+FRP with Virtual Dom.
