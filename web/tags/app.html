@@ -1,45 +1,32 @@
 <app>
+    <input type="button" id="refresh" value="refresh"/>
     <ul>
-        <li each="{todos}">{name}</li>
+        <li each="{user in users}">
+            <img style="width: 120px;" riot-src="{user.avatar_url}" alt="">
+            <p>{user.login}</p>
+        </li>
     </ul>
-    <input type="text" name="todoName"/>
-    <input type="button" onclick="{addOn}" value="add"/>
+
     <script>
-        var id = 0;
-        var mocks = [
-            {
-                id: id++,
-                name: 'todo1'
-            },
-            {
-                id: id++,
-                name: 'todo2'
-            },
-            {
-                id: id++,
-                name: 'todo3'
-            }
-        ]
         var me = this;
+
         this.on('mount', () => {
-            Rx.Observable
-                .fromPromise(Promise.resolve(mocks))
-                .subscribe(todos => {
-                    me.todos = todos;
-                    me.update();
-                })
+            var observable = Rx.Observable.create(function (observer) {
+                observer.next(1);
+                observer.next(2);
+                observer.next(3);
+                setTimeout(() => {
+                    observer.next(4);
+                observer.complete();
+            }, 1000);
+            });
+
+            console.log('just before subscribe');
+            observable.subscribe(
+                x => console.log('got value ' + x),
+                err => console.error('something wrong occurred: ' + err),
+                r => console.log('done')
+            );
+            console.log('just after subscribe');
         })
-        this.addOn = e => {
-            Rx.Observable.just(me.todoName.value)
-                .flatMap(Promise.resolve('ok'))
-                .subscribe((s)=>{
-                    console.warn(s);
-                    me.todos.push({id: id++, name: me.todoName.value})
-                    me.todoName.value = "";
-                })
-        }
-        Rx.Observable.just([1, 2]).flatMap(s=>s).subscribe(e=>{
-            console.log(e);
-        })
-    </script>
 </app>
